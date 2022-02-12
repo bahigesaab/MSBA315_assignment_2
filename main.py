@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import matplotlib as plt
 import plotly.figure_factory as ff
 import plotly.express as px
 import plotly.graph_objs as go
