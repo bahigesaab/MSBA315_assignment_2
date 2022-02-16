@@ -9,6 +9,10 @@ st.title("MSBA-325 Assignment 2")
 
 
 ## Part 1: Displaying the Dataframe of Netflix Subscribers Per Country in a Table:
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
 
 with st.empty():
     st.header("Displaying Netflix Subscribers Per Country: ")
@@ -143,7 +147,7 @@ with st.container():
 
     animated_bar_fig.update_layout( title = "Netflix Subscribers Growth per Quarter Period and Region",
                                     width = 800,
-                       legend= dict( orientation = "v",
+                                    legend= dict( orientation = "v",
                                        yanchor="bottom",
                                         y=1.02,
                                         xanchor="right",
@@ -155,9 +159,14 @@ with st.container():
 with st.container():
     st.subheader("Scatter Plot of Number of Netflix New Subscribers vs Revenues (USD) per Year Quarter: ")
 
-    fig_scatter = px.scatter(new_subscribers_per_region_df, x="New Subscribers (Millions)", y="Revenues (USD)",
-                            color="Region", size="New Subscribers (Millions)", animation_frame="Quarter and Year",
-                            animation_group="Region", hover_name="Region", range_x=[5,20], range_y=[0,3500000000])
+    fig_scatter = px.scatter(new_subscribers_per_region_df, x="New Subscribers (Millions)",
+                             y="Revenues (USD)",
+                             color="Region",
+                             size="New Subscribers (Millions)",
+                             animation_frame="Quarter and Year",
+                            animation_group="Region",
+                             hover_name="Region",
+                             range_x=[5,20], range_y=[0,3500000000])
 
     fig_scatter.update_layout(legend=dict(
                                 yanchor="bottom",
@@ -181,9 +190,13 @@ with st.container():
     region = st.selectbox("Select Region", regions)
 
 
-    fig_scatter = px.scatter(new_subscribers_per_region_df[new_subscribers_per_region_df["Region"] == region], x="New Subscribers (Millions)", y="Revenues (USD)",
-                            size="New Subscribers (Millions)", animation_frame="Quarter and Year",
-                            animation_group="Region", hover_name="Region", range_x=[5,20], range_y=[0,3500000000])
+    fig_scatter = px.scatter(new_subscribers_per_region_df[new_subscribers_per_region_df["Region"] == region],
+                             x="New Subscribers (Millions)", y="Revenues (USD)",
+                            size="New Subscribers (Millions)",
+                             animation_frame="Quarter and Year",
+                            animation_group="Region",
+                             hover_name="Region",
+                             range_x=[5,20], range_y=[0,3500000000])
 
     fig_scatter.update_layout(
                               title="Number of Netflix New Subscribers vs Revenues (USD) per Year Quarter",
@@ -202,8 +215,13 @@ with st.container():
      'Select a quarter period',
      options=quarters)
 
-    fig_scatter = px.scatter(new_subscribers_per_region_df[new_subscribers_per_region_df["Quarter and Year"] == quarter], x="New Subscribers (Millions)", y="Revenues (USD)",
-                            color="Region", size="New Subscribers (Millions)", hover_name="Region", range_x=[5,20], range_y=[0,3500000000])
+    fig_scatter = px.scatter(new_subscribers_per_region_df[new_subscribers_per_region_df["Quarter and Year"] == quarter],
+                             x="New Subscribers (Millions)", y="Revenues (USD)",
+                            color="Region",
+                             size="New Subscribers (Millions)",
+                             hover_name="Region",
+                             range_x=[5,20],
+                             range_y=[0,3500000000])
 
     fig_scatter.update_layout(
                               title="Number of Netflix New Subscribers vs Revenues (USD) per Year Quarter",
