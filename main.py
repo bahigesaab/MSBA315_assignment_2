@@ -5,16 +5,27 @@ import plotly.express as px
 import plotly.graph_objs as go
 import streamlit as st
 
+# Setting the layout of the streamlit app as wide screen layout
+st.set_page_config(layout="wide")
+
+
+
 st.title("MSBA-325 Assignment 2")
 
+## Adding a sidebar that allows us to jump to other sections:
+st.sidebar.markdown('''
+# Sections
+- [Displaying Netflix Subscribers Per Country ](#displaying-netflix-subscribers-per-country)
+- [Showing the Dataframe in a table ](#showing-the-dataframe-in-a-table)
+- [Plotting Inline ](#plotting-inline)
+- [Plotting a Map of Netflix Subscribers Per Country](#plotting-a-map-of-netflix-subscribers-per-country)
+- [Plotting 3D Chart](#plotting-3d-chart)
+- [Animations](#animations)
+''', unsafe_allow_html=True)
 
 ## Part 1: Displaying the Dataframe of Netflix Subscribers Per Country in a Table:
-add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
-)
 
-with st.empty():
+with st.container():
     st.header("Displaying Netflix Subscribers Per Country: ")
 
     netflix_subscribers_df = pd.read_csv('netflix_subscribers_per_country.csv')
@@ -110,15 +121,16 @@ with st.container():
                             zoom=1,
                             )
 
-    fig_map.update_layout(title="Number of Netflix Subscribers Per Country in 2021", height=800, width=1100,
-                      legend=dict(orientation="h"))
+    fig_map.update_layout(title="Number of Netflix Subscribers Per Country in 2021",
+                          height=800, width=1100,
+                          legend=dict(orientation="h"))
 
     st.plotly_chart(fig_map)
 
 ## Part 4: 3D Plots:
 
 with st.container():
-    st.subheader("Plotting 3D Chart:")
+    st.header("Plotting 3D Chart:")
 
     fig_3D = go.Figure(data=[go.Surface(z=netflix_subscribers_df.values)])
     fig_3D.update_layout(title='Netflix Subscribers 3D Plot')
@@ -143,10 +155,13 @@ with st.container():
 
     animated_bar_fig = px.bar(new_subscribers_per_region_df,
                               x="Region", y="New Subscribers (Millions)",
-              color="Region",  animation_frame="Quarter and Year", animation_group="Region", range_y=[0,15])
+                              color="Region",
+                              animation_frame="Quarter and Year",
+                              animation_group="Region", range_y=[0,15])
 
     animated_bar_fig.update_layout( title = "Netflix Subscribers Growth per Quarter Period and Region",
                                     width = 800,
+                                    height= 800,
                                     legend= dict( orientation = "v",
                                        yanchor="bottom",
                                         y=1.02,
@@ -164,7 +179,7 @@ with st.container():
                              color="Region",
                              size="New Subscribers (Millions)",
                              animation_frame="Quarter and Year",
-                            animation_group="Region",
+                             animation_group="Region",
                              hover_name="Region",
                              range_x=[5,20], range_y=[0,3500000000])
 
